@@ -1,0 +1,14 @@
+{
+  "name": "refeitorio-check-painel-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "serve -l 5502"
+  },
+  "devDependencies": {
+    "serve": "^14.2.3"
+  },
+  "dependencies": {
+    "refeitorio-check-frontend": "file:.."
+  }
+}

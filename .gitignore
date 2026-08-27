@@ -1,0 +1,18 @@
+# Dependências
+node_modules/
+package-lock.json
+
+# Variáveis de ambiente — NUNCA versionar (contém a senha do banco)
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+*.log
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json

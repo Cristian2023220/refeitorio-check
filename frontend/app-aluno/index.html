@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>App do Aluno - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&amp;family=Source+Sans+3:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#c54774",
+                        "on-primary-container": "#f7fff1",
+                        "surface-variant": "#d5e3fc",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#4c6a50",
+                        "warning": "#f59e0b",
+                        "primary-fixed": "#8dfa8f",
+                        "secondary-container": "#c7e8c8",
+                        "surface": "#ffffff",
+                        "primary-fixed-dim": "#71dd76",
+                        "outline": "#6f7a6b",
+                        "background": "#f1f5f9",
+                        "error": "#ef4444",
+                        "on-tertiary-fixed-variant": "#881546",
+                        "tertiary-fixed-dim": "#ffb1c5",
+                        "primary-container": "#0b872b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#04210d",
+                        "border": "#e2e8f0",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-tint": "#006e20",
+                        "tertiary": "#a52d5b",
+                        "surface-dim": "#ccdbf3",
+                        "outline-variant": "#becab9",
+                        "secondary-fixed-dim": "#aecfb0",
+                        "on-primary-fixed-variant": "#005316",
+                        "tertiary-fixed": "#ffd9e1",
+                        "secondary-fixed": "#caebcb",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#fffbff",
+                        "on-surface": "#0d1c2e",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#002205",
+                        "surface-container-high": "#dce9ff",
+                        "inverse-surface": "#233144",
+                        "inverse-primary": "#71dd76",
+                        "on-error-container": "#93000a",
+                        "text-muted": "#64748b",
+                        "surface-bright": "#f8f9ff",
+                        "primary": "#006b1f",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#d5e3fc",
+                        "on-secondary-fixed-variant": "#314d36",
+                        "surface-container": "#e6eeff",
+                        "on-surface-variant": "#3f4a3c",
+                        "on-tertiary-fixed": "#3f001b",
+                        "on-background": "#0d1c2e",
+                        "secondary": "#48654c",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary": "#ffffff",
+                        "text-heading": "#1e293b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "container-padding": "24px",
+                        "base": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "card-header": ["Plus Jakarta Sans"],
+                        "label-caps": ["\"Source Sans 3\""],
+                        "stat-value": ["\"Source Sans 3\""],
+                        "status-display": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["\"Source Sans 3\""],
+                        "body-sm": ["\"Source Sans 3\""]
+                    },
+                    "fontSize": {
+                        "card-header": ["18px", { "lineHeight": "1.2", "letterSpacing": "1px", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "fontWeight": "700" }],
+                        "stat-value": ["24px", { "lineHeight": "1", "fontWeight": "700" }],
+                        "status-display": ["20px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "headline-md": ["22px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-[80px]">
+
+<!-- ===== LOGIN ===== -->
+<div class="min-h-screen flex flex-col items-center justify-center px-lg py-xl" id="tela-login">
+<div class="w-16 h-16 bg-primary-container rounded-lg flex items-center justify-center mb-md shadow-sm">
+<span class="material-symbols-outlined text-[32px] text-on-primary-container" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-xs text-center">Refeitório IF Baiano</h1>
+<p class="font-body-md text-body-md text-text-muted mb-lg text-center">Acesse sua conta para continuar.</p>
+
+<form class="w-full max-w-sm space-y-md" onsubmit="entrar(event)">
+<div class="space-y-base">
+<label class="block font-label-caps text-label-caps text-text-muted" for="login_matricula">Matrícula</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-muted text-[20px]">person</span>
+</div>
+<input class="w-full pl-10 pr-4 py-2 bg-surface border border-border rounded text-text-heading font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors" id="login_matricula" placeholder="2024IFBA001" type="text"/>
+</div>
+</div>
+<div class="space-y-base">
+<label class="block font-label-caps text-label-caps text-text-muted" for="login_senha">Senha</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-muted text-[20px]">lock</span>
+</div>
+<input class="w-full pl-10 pr-4 py-2 bg-surface border border-border rounded text-text-heading font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors" id="login_senha" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<p class="hidden font-body-sm text-body-sm text-error bg-error-container/40 rounded px-3 py-2" id="erro_login"></p>
+<button class="w-full flex justify-center py-3 px-4 rounded bg-primary text-on-primary font-card-header text-card-header hover:bg-primary-container hover:shadow-lg transition-all duration-300 transform active:scale-[0.98]" id="btn_entrar" type="submit">Entrar</button>
+</form>
+
+<button class="mt-lg font-body-sm text-body-sm text-text-muted underline" id="texto_url_atual" onclick="configurarUrl()" type="button">API: ...</button>
+</div>
+
+<!-- ===== APP (fica escondido até o login) ===== -->
+<div class="hidden" id="app-shell">
+<header class="bg-surface px-md py-lg shadow-sm sticky top-0 z-40">
+<div class="flex justify-between items-center max-w-[1200px] mx-auto">
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary" id="header_saudacao">Olá! 👋</h1>
+<p class="font-body-sm text-body-sm text-text-muted mt-xs" id="header_turma">—</p>
+</div>
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container shadow-sm">
+<img alt="Perfil" class="w-full h-full object-cover" id="header_foto" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-md py-lg space-y-lg tela" id="tela-confirmar">
+<!-- Balance Section -->
+<section class="bg-gradient-to-br from-surface to-surface-bright rounded-xl border border-border shadow-[0_10px_25px_rgba(0,0,0,0.05)] p-lg flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Decorative circle -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container opacity-10 rounded-full"></div>
+<h2 class="font-label-caps text-label-caps text-text-muted mb-sm uppercase tracking-wider">Saldo de Refeições</h2>
+<div class="flex items-baseline gap-xs">
+<span class="font-stat-value text-[48px] leading-none font-bold text-primary" id="balance-value">—</span>
+<span class="font-body-md text-body-md text-text-muted">restantes</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full max-w-[200px] h-2 bg-surface-container mt-md rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed rounded-full" id="balance-bar" style="width: 0%;"></div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-xs"><span id="balance-usados">—</span> usados este mês</p>
+</section>
+<!-- Primary Action -->
+<section>
+<button class="w-full bg-primary hover:bg-surface-tint text-on-primary font-headline-md text-status-display py-lg rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.1)] transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-sm" id="confirm-btn" onclick="confirmarPresenca()">
+<span class="material-symbols-outlined" id="confirm-icon" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+<span id="confirm-text">Confirmar Presença Hoje</span>
+</button>
+<p class="text-center font-body-sm text-body-sm text-text-muted mt-sm">O prazo encerra às <span id="texto_prazo">10:00</span></p>
+</section>
+<!-- Menu of the Day -->
+<section class="bg-surface rounded-xl border border-border shadow-sm overflow-hidden">
+<div class="border-b border-border px-md py-sm bg-surface-bright flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary">restaurant_menu</span>
+<h3 class="font-card-header text-card-header text-text-heading">Cardápio do Dia</h3>
+</div>
+<div class="p-md">
+<div class="flex items-start gap-md">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 shadow-sm bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-text-muted">restaurant</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-on-surface mb-xs" id="cardapio_titulo">Almoço do dia</h4>
+<p class="font-body-sm text-body-sm text-text-muted" id="cardapio_descricao">O cardápio de hoje ainda não foi cadastrado pela equipe do refeitório.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- ===== HISTÓRICO ===== -->
+<div class="max-w-[1200px] mx-auto px-md py-lg space-y-lg tela hidden" id="tela-historico">
+<h2 class="font-headline-md text-headline-md text-text-heading">Histórico</h2>
+<div class="grid grid-cols-3 gap-sm">
+<div class="bg-surface rounded-xl border border-border p-md text-center">
+<p class="font-label-caps text-label-caps text-text-muted uppercase">Liberados</p>
+<p class="font-stat-value text-stat-value text-primary mt-xs" id="resumo_liberados">—</p>
+</div>
+<div class="bg-surface rounded-xl border border-border p-md text-center">
+<p class="font-label-caps text-label-caps text-text-muted uppercase">Negados</p>
+<p class="font-stat-value text-stat-value text-error mt-xs" id="resumo_negados">—</p>
+</div>
+<div class="bg-surface rounded-xl border border-border p-md text-center">
+<p class="font-label-caps text-label-caps text-text-muted uppercase">Total</p>
+<p class="font-stat-value text-stat-value text-text-heading mt-xs" id="resumo_total">—</p>
+</div>
+</div>
+<section class="bg-surface rounded-xl border border-border shadow-sm overflow-hidden">
+<div class="border-b border-border px-md py-sm bg-surface-bright flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">history</span>
+<h3 class="font-card-header text-card-header text-text-heading">Acessos recentes</h3>
+</div>
+<div class="divide-y divide-border" id="lista_historico"></div>
+</section>
+</div>
+
+<!-- ===== PERFIL ===== -->
+<div class="max-w-[1200px] mx-auto px-md py-lg space-y-lg tela hidden" id="tela-perfil">
+<h2 class="font-headline-md text-headline-md text-text-heading">Perfil</h2>
+<section class="bg-surface rounded-xl border border-border shadow-sm overflow-hidden p-lg flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full overflow-hidden border-2 border-primary-container shadow-sm mb-md">
+<img alt="Perfil" class="w-full h-full object-cover" id="perfil_foto" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"/>
+</div>
+<h3 class="font-headline-md text-[18px] text-text-heading" id="perfil_nome">—</h3>
+<p class="font-body-sm text-body-sm text-text-muted" id="perfil_curso">—</p>
+</section>
+<section class="bg-surface rounded-xl border border-border shadow-sm overflow-hidden">
+<div class="divide-y divide-border">
+<div class="p-md flex justify-between"><span class="font-body-sm text-body-sm text-text-muted">Matrícula</span><span class="font-body-sm text-body-sm text-text-heading font-semibold" id="perfil_matricula">—</span></div>
+<div class="p-md flex justify-between"><span class="font-body-sm text-body-sm text-text-muted">Telefone</span><span class="font-body-sm text-body-sm text-text-heading font-semibold" id="perfil_telefone">—</span></div>
+<div class="p-md flex justify-between"><span class="font-body-sm text-body-sm text-text-muted">Cartão RFID</span><span class="font-label-caps text-label-caps px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container" id="perfil_cartao">—</span></div>
+<div class="p-md flex justify-between"><span class="font-body-sm text-body-sm text-text-muted">Limite mensal</span><span class="font-body-sm text-body-sm text-text-heading font-semibold" id="perfil_limite">—</span></div>
+</div>
+</section>
+<button class="w-full py-3 rounded-lg border border-error text-error font-body-sm font-bold hover:bg-error-container/30 transition-colors" onclick="sair()">Sair da conta</button>
+<button class="w-full font-body-sm text-body-sm text-text-muted underline" onclick="configurarUrl()">API: <span id="texto_url_app">...</span></button>
+</div>
+<!-- BottomNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface border-t border-border shadow-[0_-4px_10px_rgba(0,0,0,0.05)] docked full-width bottom-0 rounded-t-xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2">
+<!-- Tab 1: Início -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 cursor-pointer scale-95 active:scale-90 transition-transform active:bg-surface-container-high rounded-2xl w-16" data-tela="tela-confirmar" onclick="irPara('tela-confirmar')">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-[10px] mt-xs">Início</span>
+</div>
+<!-- Tab 2: Histórico -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 cursor-pointer scale-95 active:scale-90 transition-transform active:bg-surface-container-high rounded-2xl w-16" data-tela="tela-historico" onclick="irPara('tela-historico')">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-caps text-[10px] mt-xs">Histórico</span>
+</div>
+<!-- Tab 3: Perfil -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 cursor-pointer scale-95 active:scale-90 transition-transform active:bg-surface-container-high rounded-2xl w-16" data-tela="tela-perfil" onclick="irPara('tela-perfil')">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-[10px] mt-xs">Perfil</span>
+</div>
+</nav>
+</div>
+<script>
+    // ===== Configuração da API =====
+    function getApiUrl(){ return localStorage.getItem('refeitorio_api_url') || 'http://localhost:3000'; }
+    function configurarUrl(){
+        const nova = prompt('URL da API:', getApiUrl());
+        if(nova) localStorage.setItem('refeitorio_api_url', nova.trim());
+        atualizarTextoUrl();
+    }
+    function atualizarTextoUrl(){
+        const el1 = document.getElementById('texto_url_atual');
+        const el2 = document.getElementById('texto_url_app');
+        if(el1) el1.innerText = 'API: ' + getApiUrl();
+        if(el2) el2.innerText = getApiUrl();
+    }
+    atualizarTextoUrl();
+
+    function getToken(){ return localStorage.getItem('refeitorio_aluno_token'); }
+    function setToken(t){ localStorage.setItem('refeitorio_aluno_token', t); }
+    function limparToken(){ localStorage.removeItem('refeitorio_aluno_token'); }
+
+    async function chamarApi(caminho, opcoes = {}){
+        const resposta = await fetch(getApiUrl() + caminho, {
+            ...opcoes,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + getToken(),
+                ...(opcoes.headers || {}),
+            },
+        });
+        const dados = await resposta.json().catch(() => ({}));
+        if(!resposta.ok){
+            const erro = new Error(dados.erro || 'Erro na requisição');
+            erro.status = resposta.status;
+            throw erro;
+        }
+        return dados;
+    }
+
+    async function entrar(evento){
+        evento.preventDefault();
+        const matricula = document.getElementById('login_matricula').value.trim();
+        const senha = document.getElementById('login_senha').value;
+        const erroBox = document.getElementById('erro_login');
+        const btn = document.getElementById('btn_entrar');
+        erroBox.classList.add('hidden');
+
+        if(!matricula || !senha){
+            erroBox.innerText = 'Preencha matrícula e senha.';
+            erroBox.classList.remove('hidden');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = 'Entrando...';
+        try {
+            const resposta = await fetch(getApiUrl() + '/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ matricula, senha }),
+            });
+            const dados = await resposta.json();
+            if(!resposta.ok) throw new Error(dados.erro || 'Não foi possível entrar');
+
+            setToken(dados.token);
+            mostrarApp();
+        } catch (erro) {
+            erroBox.innerText = erro.message || 'Não foi possível conectar à API.';
+            erroBox.classList.remove('hidden');
+        } finally {
+            btn.disabled = false;
+            btn.innerText = 'Entrar';
+        }
+    }
+
+    function sair(){
+        limparToken();
+        document.getElementById('app-shell').classList.add('hidden');
+        document.getElementById('tela-login').classList.remove('hidden');
+        document.getElementById('login_senha').value = '';
+    }
+
+    function mostrarApp(){
+        document.getElementById('tela-login').classList.add('hidden');
+        document.getElementById('app-shell').classList.remove('hidden');
+        irPara('tela-confirmar');
+        carregarPerfilCabecalho();
+        carregarConfirmacaoHoje();
+        carregarSaldo();
+        carregarCardapio();
+    }
+
+    async function carregarCardapio(){
+        try {
+            const dados = await chamarApi('/cardapio-hoje');
+            const titulo = document.getElementById('cardapio_titulo');
+            const descricao = document.getElementById('cardapio_descricao');
+            if(dados.cardapio){
+                titulo.innerText = 'Almoço de hoje';
+                descricao.innerText = dados.cardapio;
+            } else {
+                titulo.innerText = 'Almoço do dia';
+                descricao.innerText = 'O cardápio de hoje ainda não foi cadastrado pela equipe do refeitório.';
+            }
+        } catch (erro) {
+            console.error(erro);
+        }
+    }
+
+    if(getToken()) mostrarApp();
+
+    function irPara(idTela){
+        document.querySelectorAll('.tela').forEach(t => t.classList.add('hidden'));
+        document.getElementById(idTela).classList.remove('hidden');
+        document.querySelectorAll('nav [data-tela]').forEach(b => {
+            b.classList.toggle('bg-primary-container', b.dataset.tela === idTela);
+            b.classList.toggle('text-on-primary-container', b.dataset.tela === idTela);
+            b.classList.toggle('text-on-surface-variant', b.dataset.tela !== idTela);
+        });
+        if(idTela === 'tela-historico') carregarHistorico();
+        if(idTela === 'tela-perfil') carregarPerfil();
+    }
+
+    // ===== Cabeçalho =====
+    async function carregarPerfilCabecalho(){
+        try {
+            const aluno = await chamarApi('/me');
+            document.getElementById('header_saudacao').innerText = 'Olá, ' + aluno.nome.split(' ')[0] + '! 👋';
+            document.getElementById('header_turma').innerText = aluno.curso || '—';
+            if(aluno.fotoUrl) document.getElementById('header_foto').src = aluno.fotoUrl;
+        } catch (erro) { console.error(erro); }
+    }
+
+    // ===== Tela Confirmar =====
+    function pintarConfirmado(confirmado){
+        const btn = document.getElementById('confirm-btn');
+        const icon = document.getElementById('confirm-icon');
+        const text = document.getElementById('confirm-text');
+        if(confirmado){
+            btn.classList.remove('bg-primary', 'hover:bg-surface-tint');
+            btn.classList.add('bg-secondary-container', 'text-on-secondary-container');
+            icon.innerText = 'check_circle';
+            text.innerText = 'Presença Confirmada';
+            btn.disabled = true;
+        } else {
+            btn.classList.add('bg-primary', 'hover:bg-surface-tint');
+            btn.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+            icon.innerText = 'qr_code_scanner';
+            text.innerText = 'Confirmar Presença Hoje';
+            btn.disabled = false;
+        }
+    }
+
+    async function carregarConfirmacaoHoje(){
+        try {
+            const dados = await chamarApi('/confirmacoes/hoje');
+            pintarConfirmado(dados.confirmado);
+        } catch (erro) { console.error(erro); }
+    }
+
+    async function carregarSaldo(){
+        try {
+            const dados = await chamarApi('/me/saldo');
+            document.getElementById('balance-value').innerText = dados.saldoRestante;
+            document.getElementById('balance-usados').innerText = dados.usosNoMes;
+            const pct = dados.limiteMensal > 0 ? Math.round((dados.usosNoMes / dados.limiteMensal) * 100) : 0;
+            document.getElementById('balance-bar').style.width = Math.min(pct, 100) + '%';
+        } catch (erro) { console.error(erro); }
+    }
+
+    async function confirmarPresenca(){
+        const text = document.getElementById('confirm-text');
+        const anterior = text.innerText;
+        text.innerText = 'Confirmando...';
+        try {
+            await chamarApi('/confirmacoes', { method: 'POST' });
+            pintarConfirmado(true);
+        } catch (erro) {
+            alert(erro.message || 'Não foi possível confirmar presença.');
+            text.innerText = anterior;
+        }
+    }
+
+    // ===== Tela Histórico =====
+    const ROTULOS_MOTIVO = {
+        sem_confirmacao: 'Presença não confirmada',
+        sem_saldo: 'Limite mensal atingido',
+        fora_horario: 'Fora do horário do almoço',
+        cartao_desconhecido: 'Cartão não reconhecido',
+    };
+
+    async function carregarHistorico(){
+        const container = document.getElementById('lista_historico');
+        container.innerHTML = '<div class="p-md text-body-sm font-body-sm text-text-muted">Carregando...</div>';
+        try {
+            const itens = await chamarApi('/me/historico');
+            const liberados = itens.filter(i => i.resultado === 'liberado').length;
+            const negados = itens.filter(i => i.resultado === 'negado').length;
+            document.getElementById('resumo_liberados').innerText = liberados;
+            document.getElementById('resumo_negados').innerText = negados;
+            document.getElementById('resumo_total').innerText = itens.length;
+
+            if(itens.length === 0){
+                container.innerHTML = '<div class="p-md text-body-sm font-body-sm text-text-muted">Nenhum acesso registrado ainda.</div>';
+                return;
+            }
+
+            container.innerHTML = itens.map(item => {
+                const data = new Date(item.lido_em).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'});
+                const ok = item.resultado === 'liberado';
+                const motivo = ok ? 'Almoço' : (ROTULOS_MOTIVO[item.motivo_negacao] || 'Negado');
+                return `
+                    <div class="p-md flex items-center justify-between hover:bg-surface-container-low transition-colors">
+                        <div class="flex items-center gap-md">
+                            <div class="w-10 h-10 rounded-full ${ok ? 'bg-secondary-container text-primary-container' : 'bg-error-container text-error'} flex items-center justify-center">
+                                <span class="material-symbols-outlined">${ok ? 'check_circle' : 'cancel'}</span>
+                            </div>
+                            <div>
+                                <p class="font-body-md text-body-md text-on-surface font-semibold">${motivo}</p>
+                                <p class="font-body-sm text-body-sm text-text-muted">${data}</p>
+                            </div>
+                        </div>
+                        <span class="font-label-caps text-label-caps px-2 py-1 ${ok ? 'bg-surface-container-high text-on-surface-variant' : 'bg-error-container text-error'} rounded">${ok ? 'Liberado' : 'Negado'}</span>
+                    </div>
+                `;
+            }).join('');
+        } catch (erro) {
+            container.innerHTML = `<div class="p-md text-body-sm font-body-sm text-error">${erro.message}</div>`;
+        }
+    }
+
+    // ===== Tela Perfil =====
+    async function carregarPerfil(){
+        try {
+            const aluno = await chamarApi('/me');
+            document.getElementById('perfil_nome').innerText = aluno.nome;
+            document.getElementById('perfil_curso').innerText = aluno.curso || '—';
+            document.getElementById('perfil_matricula').innerText = aluno.matricula;
+            document.getElementById('perfil_telefone').innerText = aluno.telefone || '—';
+            document.getElementById('perfil_limite').innerText = aluno.limiteMensal + ' usos';
+            if(aluno.fotoUrl) document.getElementById('perfil_foto').src = aluno.fotoUrl;
+
+            const tagCartao = document.getElementById('perfil_cartao');
+            tagCartao.innerText = aluno.cartaoVinculado ? 'Vinculado' : 'Pendente';
+            tagCartao.className = aluno.cartaoVinculado
+                ? 'font-label-caps text-label-caps px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container'
+                : 'font-label-caps text-label-caps px-2 py-1 rounded-full bg-warning/20 text-warning';
+        } catch (erro) { console.error(erro); }
+    }
+</script>
+</body></html>

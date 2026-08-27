@@ -1,0 +1,14 @@
+{
+  "name": "refeitorio-check-totem",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "serve -l 5500"
+  },
+  "devDependencies": {
+    "serve": "^14.2.3"
+  },
+  "dependencies": {
+    "refeitorio-check-frontend": "file:.."
+  }
+}

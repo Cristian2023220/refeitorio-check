@@ -1,0 +1,13 @@
+{
+  "name": "refeitorio-check-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix totem && npm install --prefix app-aluno && npm install --prefix painel-web",
+    "start": "concurrently -n totem,app-aluno,painel-web -c green,cyan,yellow \"npm --prefix totem start\" \"npm --prefix app-aluno start\" \"npm --prefix painel-web start\"",
+    "start:totem": "npm --prefix totem start",
+    "start:app-aluno": "npm --prefix app-aluno start",
+    "start:painel-web": "npm --prefix painel-web start"
+  },
+  "devDependencies": { "concurrently": "^8.2.2" }
+}
