@@ -27,6 +27,25 @@ frontend/
 └── painel-web/     → a equipe do refeitório gerencia tudo
 ```
 
+## App do aluno: React + Vite + TypeScript + PWA
+
+Diferente de `totem/` e `painel-web/` (HTML + JS vanilla + Tailwind via CDN), o `app-aluno/`
+foi migrado para **Vite + React + TypeScript**. É o primeiro passo de uma migração maior —
+`totem` e `painel-web` continuam como estão por enquanto e devem seguir o mesmo caminho depois.
+
+O que mudou, além da linguagem:
+- **Modo escuro** de verdade (toggle no cabeçalho), via variáveis CSS + `darkMode: 'class'` do Tailwind.
+- **PWA instalável** (`vite-plugin-pwa`): manifest + service worker, dá pra "Adicionar à tela inicial"
+  no Android e o app abre em tela cheia, com ícone próprio, como um app nativo.
+- Fontes (Plus Jakarta Sans / Source Sans 3) e ícones (`lucide-react`) agora são bundlados,
+  não dependem mais do CDN do Google Fonts em runtime — importante para o app funcionar
+  offline/com rede ruim.
+- Os ícones do PWA em `app-aluno/public/icons/` são **placeholders** (gerados por
+  `npm run generate-icons`, cor sólida). Troque por uma arte definitiva quando tiver o logo.
+
+Comandos (dentro de `app-aluno/`): `npm run dev` (mesmo que `npm start`, porta 5501),
+`npm run build` (gera `dist/`), `npm run preview` (serve o build).
+
 ## Instalar e rodar
 
 ```bash
