@@ -7,7 +7,7 @@ a equipe acompanha pelo painel web, e a liberação no refeitório acontece por 
 
 ```
 refeitorio_check/
-├── backend/          → API (Node/Express) + banco (PostgreSQL/Neon)
+├── backend/          → API (Node/Express + TypeScript) + banco (PostgreSQL/Neon)
 └── frontend/
     ├── totem/         → tela fixa no refeitório, ligada ao leitor RFID
     ├── app-aluno/      → o aluno confirma presença e acompanha o histórico
