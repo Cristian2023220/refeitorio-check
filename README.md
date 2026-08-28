@@ -3,15 +3,24 @@
 Sistema de gestão do refeitório do IFBaiano — Campus Itapetinga. Alunos confirmam presença pelo app,
 a equipe acompanha pelo painel web, e a liberação no refeitório acontece por leitura de cartão RFID no totem.
 
+## Stack
+
+- **Backend**: Node.js/Express + TypeScript, PostgreSQL (Neon em produção; o driver troca sozinho
+  pra `pg` tradicional se a `DATABASE_URL` não for do Neon — dá pra rodar contra um Postgres local
+  em dev, sem credencial nenhuma, veja `backend/README.md`).
+- **Frontend**: três apps independentes em React + Vite + TypeScript, com modo escuro. Só o
+  `app-aluno` é PWA instalável (o painel web e o totem são ferramentas internas/kiosk, não fazem
+  sentido como app instalável).
+
 ## Estrutura do projeto
 
 ```
 refeitorio_check/
-├── backend/          → API (Node/Express) + banco (PostgreSQL/Neon)
+├── backend/          → API (Node/Express + TypeScript) + banco (PostgreSQL/Neon)
 └── frontend/
-    ├── totem/         → tela fixa no refeitório, ligada ao leitor RFID
-    ├── app-aluno/      → o aluno confirma presença e acompanha o histórico
-    └── painel-web/     → a equipe do refeitório gerencia tudo
+    ├── totem/         → tela fixa no refeitório, ligada ao leitor RFID (React + TypeScript)
+    ├── app-aluno/      → o aluno confirma presença e acompanha o histórico (React + TS + PWA)
+    └── painel-web/     → a equipe do refeitório gerencia tudo (React + TypeScript)
 ```
 
 ## Como rodar pela primeira vez (depois de clonar)
@@ -33,12 +42,16 @@ JWT_SECRET=qualquer-string-longa-e-aleatoria
 TOTEM_DEVICE_KEY=outra-string-longa-e-aleatoria
 ```
 
+Não tem um banco Neon à mão ainda? Não precisa esperar — aponte a `DATABASE_URL` pra um Postgres
+local (ex: um container Docker) e o backend detecta sozinho e usa o driver certo. Veja o exemplo
+rápido em `backend/README.md`, seção "Nota sobre conexão com o banco".
+
 Depois:
 ```bash
 npm run migrate
 npm run dev
 ```
-A API sobe em `http://localhost:3000`.
+A API sobe em `http://localhost:3000`. Em produção: `npm run build` e depois `npm start`.
 
 Detalhes de endpoints, regras de negócio e como criar o primeiro usuário admin estão em `backend/README.md`.
 

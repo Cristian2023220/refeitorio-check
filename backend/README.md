@@ -1,19 +1,41 @@
 # Refeitório-Check — API
 
-Backend Node.js/Express + PostgreSQL para o app do aluno, o painel web e o totem RFID.
+Backend Node.js/Express + TypeScript + PostgreSQL para o app do aluno, o painel web e o totem RFID.
 
 ## Nota sobre conexão com o banco
 
-Este projeto usa o driver `@neondatabase/serverless` (WebSocket na porta 443) em vez do `pg` tradicional (TCP direto na porta 5432). Isso é proposital: muitas redes de campus/corporativas bloqueiam a porta 5432, mas praticamente nenhuma bloqueia 443 (a mesma porta do HTTPS). Se você não usa Neon como banco, veja a seção "Usando outro provedor de PostgreSQL" mais abaixo.
+O driver é escolhido automaticamente em `src/utils/createPool.ts`, pelo host da `DATABASE_URL`:
+
+- Host `*.neon.tech` → `@neondatabase/serverless` (WebSocket na porta 443). Proposital: muitas
+  redes de campus/corporativas bloqueiam a porta 5432, mas praticamente nenhuma bloqueia 443
+  (a mesma porta do HTTPS).
+- Qualquer outro host (Postgres local, Docker, outro provedor) → `pg` tradicional (TCP na 5432).
+
+Ou seja, dá pra desenvolver localmente contra um Postgres em Docker sem precisar de credenciais do
+Neon, sem tocar em nenhum código — só aponte a `DATABASE_URL` pro seu banco local. Exemplo rápido
+pra subir um Postgres local:
+
+```bash
+docker run -d --name refeitorio-check-db \
+  -e POSTGRES_USER=refeitorio -e POSTGRES_PASSWORD=refeitorio_dev_local \
+  -e POSTGRES_DB=refeitorio_check -p 5544:5432 postgres:17-alpine
+```
+```
+DATABASE_URL=postgres://refeitorio:refeitorio_dev_local@localhost:5544/refeitorio_check
+```
 
 ## Como rodar
 
 ```bash
 npm install
 cp .env.example .env   # edite DATABASE_URL, JWT_SECRET e TOTEM_DEVICE_KEY
-npm run migrate        # cria as tabelas (migrations/001_schema.sql)
-npm run dev             # sobe em http://localhost:3000
+npm run migrate        # cria as tabelas (migrations/001_schema.sql), roda direto do .ts via tsx
+npm run dev             # sobe em http://localhost:3000, com hot-reload (tsx watch)
 ```
+
+Em produção: `npm run build` (compila `.ts` → `dist/` via `tsc`) e depois `npm start` (roda
+`dist/server.js`). `npm run dev`/`npm run migrate` não precisam de build — rodam a partir do
+`.ts` diretamente via `tsx`.
 
 Você precisa de um PostgreSQL rodando e acessível pela `DATABASE_URL`. Para criar o primeiro usuário administrativo (a tabela `usuarios_admin` começa vazia), gere um hash de senha e insira direto no banco:
 
@@ -57,72 +79,33 @@ VALUES ('Marta Nutricionista', 'marta@ifbaiano.edu.br', '<hash gerado acima>', '
 | GET | `/relatorios?inicio=&fim=` |
 | GET / PUT | `/configuracoes` (PUT exige papel `gestor`) |
 
-## Usando outro provedor de PostgreSQL (não-Neon)
-
-O driver `@neondatabase/serverless` só funciona com bancos hospedados no Neon. Se você trocar de provedor (RDS, Supabase, Postgres local etc.) e sua rede permitir a porta 5432 normalmente, volte para o `pg` tradicional:
-
-```bash
-npm uninstall @neondatabase/serverless ws
-npm install pg
-```
-
-E em `src/db.js` e `migrations/run.js`, troque:
-```js
-const { Pool, neonConfig } = require('@neondatabase/serverless');
-const ws = require('ws');
-neonConfig.webSocketConstructor = ws;
-```
-por simplesmente:
-```js
-const { Pool } = require('pg');
-```
-
-## Ligando o totem HTML ao backend real
-
-A tela do leitor que prototipamos usa um objeto `bancoDeDados` local. Para virar produção, troque `processarLeitura(codigo)` por uma chamada real:
-
-```js
-async function processarLeitura(codigoCartao) {
-  const resposta = await fetch('https://sua-api.dominio.br/acesso/verificar', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Device-Key': 'a-mesma-chave-do-.env'
-    },
-    body: JSON.stringify({ uid: codigoCartao })
-  });
-
-  const dados = await resposta.json();
-  // dados.resultado === 'liberado' | 'negado'
-  // dados.motivo (quando negado): sem_confirmacao | sem_saldo | fora_horario | cartao_desconhecido
-  // dados.aluno: { nome, matricula, curso, fotoUrl, usosNoMes, saldoRestante }
-}
-```
-
-O input invisível `#leitor_rfid` continua igual — só a função que processa a leitura passa a falar com a API em vez de consultar um objeto local.
-
 ## Estrutura de pastas
 
 ```
 backend/
-├── server.js
+├── server.ts
+├── tsconfig.json
 ├── migrations/
 │   ├── 001_schema.sql
-│   └── run.js
+│   └── run.ts
 └── src/
-    ├── db.js
+    ├── db.ts
+    ├── types/
+    │   └── express.d.ts    (estende Express.Request com req.usuario)
     ├── middleware/
-    │   ├── auth.js         (JWT: aluno / admin)
-    │   └── deviceAuth.js    (chave fixa do totem)
+    │   ├── auth.ts          (JWT: aluno / admin)
+    │   └── deviceAuth.ts    (chave fixa do totem)
     ├── services/
-    │   └── acesso.service.js  (regra de negócio central)
+    │   └── acesso.service.ts  (regra de negócio central)
+    ├── utils/
+    │   └── createPool.ts   (escolhe driver Neon vs pg pela DATABASE_URL)
     └── routes/
-        ├── auth.routes.js
-        ├── aluno.routes.js
-        ├── acesso.routes.js
-        ├── alunos.routes.js
-        ├── cartoes.routes.js
-        ├── dashboard.routes.js
-        ├── relatorios.routes.js
-        └── configuracoes.routes.js
+        ├── auth.routes.ts
+        ├── aluno.routes.ts
+        ├── acesso.routes.ts
+        ├── alunos.routes.ts
+        ├── cartoes.routes.ts
+        ├── dashboard.routes.ts
+        ├── relatorios.routes.ts
+        └── configuracoes.routes.ts
 ```
