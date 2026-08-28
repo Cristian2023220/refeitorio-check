@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "refeitorio-check-frontend": "file:../.."
+  }
+}
