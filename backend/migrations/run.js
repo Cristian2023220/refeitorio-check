@@ -1,13 +1,10 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const { Pool, neonConfig } = require('@neondatabase/serverless');
-const ws = require('ws');
-
-neonConfig.webSocketConstructor = ws;
+const { criarPool } = require('../src/utils/createPool');
 
 async function main() {
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  const pool = criarPool(process.env.DATABASE_URL);
   const sql = fs.readFileSync(path.join(__dirname, '001_schema.sql'), 'utf8');
 
   console.log('Aplicando migração 001_schema.sql...');

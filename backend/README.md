@@ -4,7 +4,25 @@ Backend Node.js/Express + PostgreSQL para o app do aluno, o painel web e o totem
 
 ## Nota sobre conexão com o banco
 
-Este projeto usa o driver `@neondatabase/serverless` (WebSocket na porta 443) em vez do `pg` tradicional (TCP direto na porta 5432). Isso é proposital: muitas redes de campus/corporativas bloqueiam a porta 5432, mas praticamente nenhuma bloqueia 443 (a mesma porta do HTTPS). Se você não usa Neon como banco, veja a seção "Usando outro provedor de PostgreSQL" mais abaixo.
+O driver é escolhido automaticamente em `src/utils/createPool.js`, pelo host da `DATABASE_URL`:
+
+- Host `*.neon.tech` → `@neondatabase/serverless` (WebSocket na porta 443). Proposital: muitas
+  redes de campus/corporativas bloqueiam a porta 5432, mas praticamente nenhuma bloqueia 443
+  (a mesma porta do HTTPS).
+- Qualquer outro host (Postgres local, Docker, outro provedor) → `pg` tradicional (TCP na 5432).
+
+Ou seja, dá pra desenvolver localmente contra um Postgres em Docker sem precisar de credenciais do
+Neon, sem tocar em nenhum código — só aponte a `DATABASE_URL` pro seu banco local. Exemplo rápido
+pra subir um Postgres local:
+
+```bash
+docker run -d --name refeitorio-check-db \
+  -e POSTGRES_USER=refeitorio -e POSTGRES_PASSWORD=refeitorio_dev_local \
+  -e POSTGRES_DB=refeitorio_check -p 5544:5432 postgres:17-alpine
+```
+```
+DATABASE_URL=postgres://refeitorio:refeitorio_dev_local@localhost:5544/refeitorio_check
+```
 
 ## Como rodar
 
@@ -57,26 +75,6 @@ VALUES ('Marta Nutricionista', 'marta@ifbaiano.edu.br', '<hash gerado acima>', '
 | GET | `/relatorios?inicio=&fim=` |
 | GET / PUT | `/configuracoes` (PUT exige papel `gestor`) |
 
-## Usando outro provedor de PostgreSQL (não-Neon)
-
-O driver `@neondatabase/serverless` só funciona com bancos hospedados no Neon. Se você trocar de provedor (RDS, Supabase, Postgres local etc.) e sua rede permitir a porta 5432 normalmente, volte para o `pg` tradicional:
-
-```bash
-npm uninstall @neondatabase/serverless ws
-npm install pg
-```
-
-E em `src/db.js` e `migrations/run.js`, troque:
-```js
-const { Pool, neonConfig } = require('@neondatabase/serverless');
-const ws = require('ws');
-neonConfig.webSocketConstructor = ws;
-```
-por simplesmente:
-```js
-const { Pool } = require('pg');
-```
-
 ## Ligando o totem HTML ao backend real
 
 A tela do leitor que prototipamos usa um objeto `bancoDeDados` local. Para virar produção, troque `processarLeitura(codigo)` por uma chamada real:
@@ -116,6 +114,8 @@ backend/
     │   └── deviceAuth.js    (chave fixa do totem)
     ├── services/
     │   └── acesso.service.js  (regra de negócio central)
+    ├── utils/
+    │   └── createPool.js   (escolhe driver Neon vs pg pela DATABASE_URL)
     └── routes/
         ├── auth.routes.js
         ├── aluno.routes.js
