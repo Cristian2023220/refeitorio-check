@@ -16,16 +16,20 @@ export function ResultState({ sucesso, aluno, motivoTexto, onFinalizar }: Result
   const [segundosRestantes, setSegundosRestantes] = useState(SEGUNDOS_ATE_RESETAR);
 
   useEffect(() => {
-    setSegundosRestantes(SEGUNDOS_ATE_RESETAR);
+    // onFinalizar() atualiza o estado do componente pai (App) — chamar isso de dentro do
+    // updater do setSegundosRestantes dispararia um "Cannot update a component while
+    // rendering a different component", já que updaters podem rodar durante a fase de
+    // render do React. Por isso o contador usa uma variável simples no closure do efeito,
+    // e onFinalizar() só é chamado no corpo do callback do interval.
+    let restante = SEGUNDOS_ATE_RESETAR;
+    setSegundosRestantes(restante);
     const intervalo = setInterval(() => {
-      setSegundosRestantes((atual) => {
-        if (atual <= 1) {
-          clearInterval(intervalo);
-          onFinalizar();
-          return 0;
-        }
-        return atual - 1;
-      });
+      restante -= 1;
+      setSegundosRestantes(restante);
+      if (restante <= 0) {
+        clearInterval(intervalo);
+        onFinalizar();
+      }
     }, 1000);
     return () => clearInterval(intervalo);
     // eslint-disable-next-line react-hooks/exhaustive-deps
