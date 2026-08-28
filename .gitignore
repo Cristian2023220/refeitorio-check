@@ -19,3 +19,6 @@ npm-debug.log*
 Thumbs.db
 .vscode/*
 !.vscode/extensions.json
+
+# Config local do Claude Code (launch.json de preview) — não versionado por enquanto
+.claude/
