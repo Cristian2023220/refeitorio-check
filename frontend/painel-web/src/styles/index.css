@@ -1,0 +1,76 @@
+/* Só o subset "latin" — cobre PT-BR e evita baixar/cachear glifos cirílico/grego/vietnamita à toa */
+@import '@fontsource/plus-jakarta-sans/latin-400.css';
+@import '@fontsource/plus-jakarta-sans/latin-700.css';
+@import '@fontsource/source-sans-3/latin-400.css';
+@import '@fontsource/source-sans-3/latin-700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: 0 107 31;
+  --color-primary-container: 11 135 43;
+  --color-on-primary: 255 255 255;
+  --color-on-primary-container: 247 255 241;
+
+  --color-secondary-container: 199 232 200;
+  --color-on-secondary-container: 76 106 80;
+
+  --color-surface: 255 255 255;
+  --color-surface-container-lowest: 255 255 255;
+  --color-surface-container-low: 239 244 255;
+  --color-surface-container-high: 220 233 255;
+  --color-surface-tint: 0 110 32;
+
+  --color-background: 241 245 249;
+  --color-on-background: 13 28 46;
+  --color-on-surface: 13 28 46;
+  --color-on-surface-variant: 63 74 60;
+
+  --color-border: 226 232 240;
+  --color-text-muted: 100 116 139;
+  --color-text-heading: 30 41 59;
+
+  --color-error: 239 68 68;
+  --color-error-container: 255 218 214;
+  --color-on-error-container: 147 0 10;
+  --color-warning: 245 158 11;
+}
+
+.dark {
+  --color-primary: 74 222 128;
+  --color-primary-container: 20 83 45;
+  --color-on-primary: 5 46 22;
+  --color-on-primary-container: 187 247 208;
+
+  --color-secondary-container: 36 64 42;
+  --color-on-secondary-container: 199 232 200;
+
+  --color-surface: 22 32 46;
+  --color-surface-container-lowest: 15 23 34;
+  --color-surface-container-low: 20 29 41;
+  --color-surface-container-high: 32 44 59;
+  --color-surface-tint: 74 222 128;
+
+  --color-background: 11 18 32;
+  --color-on-background: 231 237 245;
+  --color-on-surface: 231 237 245;
+  --color-on-surface-variant: 185 196 189;
+
+  --color-border: 42 54 70;
+  --color-text-muted: 148 163 184;
+  --color-text-heading: 241 245 249;
+
+  --color-error: 248 113 113;
+  --color-error-container: 127 29 29;
+  --color-on-error-container: 254 202 202;
+  --color-warning: 251 191 36;
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
