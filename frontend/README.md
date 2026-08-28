@@ -27,30 +27,33 @@ frontend/
 └── painel-web/     → a equipe do refeitório gerencia tudo
 ```
 
-## App do aluno e painel web: React + Vite + TypeScript
+## Os três: React + Vite + TypeScript
 
-`app-aluno/` e `painel-web/` foram migrados para **Vite + React + TypeScript**, saindo do HTML +
-JS vanilla + Tailwind via CDN original. Só o `totem/` continua como estava — é uma tela fixa e
-simples, sem prioridade de migração por enquanto.
+`totem/`, `app-aluno/` e `painel-web/` foram migrados para **Vite + React + TypeScript**, saindo
+do HTML + JS vanilla + Tailwind via CDN original. Não sobra nenhum frontend em HTML solto.
 
-O que mudou nos dois, além da linguagem:
-- **Modo escuro** de verdade (toggle no cabeçalho/topbar), via variáveis CSS + `darkMode: 'class'`
-  do Tailwind — antes existia só a configuração do Tailwind, sem nenhum toggle ligado a ela.
+O que mudou nos três, além da linguagem:
+- **Modo escuro** de verdade via variáveis CSS + `darkMode: 'class'` do Tailwind — antes existia
+  só a configuração do Tailwind, sem nenhum toggle ligado a ela. No app-aluno e painel-web o
+  toggle fica visível no cabeçalho/topbar; no totem fica dentro do modal de configuração (⚙),
+  já que é uma tela pública, não um ajuste pra qualquer pessoa mexer.
 - Fontes (Plus Jakarta Sans / Source Sans 3) e ícones (`lucide-react`) agora são bundlados, não
   dependem mais do CDN do Google Fonts em runtime.
-- `prompt()`/`alert()`/`confirm()` nativos viraram modais e toasts estilizados, e as tabelas
-  mostram skeletons de carregamento em vez de texto "Carregando...".
-- Cada um mantém seu próprio `package.json`/`node_modules` — são projetos Vite independentes,
-  não um monorepo com pacotes compartilhados.
+- `prompt()`/`alert()`/`confirm()` nativos viraram modais e toasts estilizados (app-aluno e
+  painel-web), e as tabelas do painel mostram skeletons de carregamento em vez de texto
+  "Carregando...".
+- Cada um mantém seu próprio `package.json`/`node_modules` — são três projetos Vite
+  independentes, não um monorepo com pacotes compartilhados.
 
 Só o **app-aluno** vira PWA (`vite-plugin-pwa`): manifest + service worker, dá pra "Adicionar à
-tela inicial" no Android e abrir em tela cheia como um app nativo. O painel web é ferramenta
-interna de uso em desktop pela equipe — não faz sentido como PWA instalável, então não tem.
-Os ícones do PWA em `app-aluno/public/icons/` são **placeholders** (gerados por
-`npm run generate-icons`, cor sólida) — troque por uma arte definitiva quando tiver o logo.
+tela inicial" no Android e abrir em tela cheia como um app nativo. Painel web e totem não —
+são ferramenta interna de equipe e tela fixa de kiosk, respectivamente; nenhum dos dois é algo
+que alguém "instala". Os ícones do PWA em `app-aluno/public/icons/` são **placeholders**
+(gerados por `npm run generate-icons`, cor sólida) — troque por uma arte definitiva quando tiver
+o logo.
 
-Comandos (dentro de `app-aluno/` ou `painel-web/`): `npm run dev` (mesmo que `npm start`, nas
-portas 5501/5502), `npm run build` (gera `dist/`), `npm run preview` (serve o build).
+Comandos (dentro de qualquer um dos três): `npm run dev` (mesmo que `npm start`, nas portas
+5500/5501/5502), `npm run build` (gera `dist/`), `npm run preview` (serve o build).
 
 ## Instalar e rodar
 

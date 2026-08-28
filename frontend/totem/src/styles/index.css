@@ -1,0 +1,100 @@
+/* Só o subset "latin" — cobre PT-BR e evita baixar/cachear glifos cirílico/grego/vietnamita à toa */
+@import '@fontsource/plus-jakarta-sans/latin-400.css';
+@import '@fontsource/plus-jakarta-sans/latin-700.css';
+@import '@fontsource/source-sans-3/latin-400.css';
+@import '@fontsource/source-sans-3/latin-700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: 0 107 31;
+  --color-primary-container: 11 135 43;
+  --color-on-primary: 255 255 255;
+
+  --color-surface: 255 255 255;
+  --color-surface-container-low: 239 244 255;
+  --color-surface-container-high: 220 233 255;
+  --color-surface-tint: 0 110 32;
+
+  --color-background: 241 245 249;
+  --color-on-surface: 13 28 46;
+
+  --color-border: 226 232 240;
+  --color-text-muted: 100 116 139;
+  --color-text-heading: 30 41 59;
+
+  --color-error: 239 68 68;
+  --color-error-container: 255 218 214;
+}
+
+.dark {
+  --color-primary: 74 222 128;
+  --color-primary-container: 20 83 45;
+  --color-on-primary: 5 46 22;
+
+  --color-surface: 22 32 46;
+  --color-surface-container-low: 20 29 41;
+  --color-surface-container-high: 32 44 59;
+  --color-surface-tint: 74 222 128;
+
+  --color-background: 11 18 32;
+  --color-on-surface: 231 237 245;
+
+  --color-border: 42 54 70;
+  --color-text-muted: 148 163 184;
+  --color-text-heading: 241 245 249;
+
+  --color-error: 248 113 113;
+  --color-error-container: 127 29 29;
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  overflow: hidden;
+}
+
+#leitor_rfid {
+  position: absolute;
+  opacity: 0;
+  top: -100px;
+}
+
+.pulse-ring {
+  animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
